@@ -13,7 +13,7 @@ class Global {
 
   factory Global() => _getInstance()!;
   Global._internal() {
-    appChannel = Get.put<AppChannel>(RemoteAppChannel());
+    if (GetPlatform.isAndroid) appChannel = Get.put<AppChannel>(RemoteAppChannel());
     if (RuntimeEnvir.packageName != Config.packageName) {
       // 如果这个项目是独立运行的，那么RuntimeEnvir.packageName会在main函数中被设置成Config.packageName
       Config.flutterPackage = Config.flutterPackagePrifix;

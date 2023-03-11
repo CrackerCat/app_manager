@@ -30,7 +30,6 @@ dependencies:
     git: https://github.com/nightmare-space/adbutil
   file_manager_view:
     git: https://github.com/nightmare-space/file_manager_view.git
-  flutter_displaymode: ^0.5.0
   
 dev_dependencies:
   flutter_test:
