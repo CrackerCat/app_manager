@@ -21,7 +21,7 @@ packages:
   app_channel:
     dependency: "direct main"
     description:
-      path: "../applib/applib_util"
+      path: "../applib/app_channel"
       relative: true
     source: path
     version: "0.0.1"
