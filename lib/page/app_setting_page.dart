@@ -32,19 +32,19 @@ class AppSettingPage extends StatefulWidget {
   final Offset offset;
 
   @override
-  _AppSettingPageState createState() => _AppSettingPageState();
+  State createState() => _AppSettingPageState();
 }
 
 class _AppSettingPageState extends State<AppSettingPage> {
   AppManagerController controller = Get.find();
   List<String> displayId = [];
+  AppChannel appChannel = Get.find();
   @override
   void initState() {
     super.initState();
     exec('dumpsys display | grep mDisplayId=').then((value) {
       Log.i(value);
     });
-    AppChannel appChannel = Get.find();
     appChannel.getDisplays().then((value) {
       displayId = value;
       Log.i(displayId);
@@ -64,10 +64,10 @@ class _AppSettingPageState extends State<AppSettingPage> {
 
   Future<void> getDetailsInfo() async {
     AppDetails details = AppDetails();
-    details.activitys = await Global().appChannel!.getAppActivitys(
-          widget.entity.packageName,
-        );
-    String result = await Global().appChannel!.getAppDetails(widget.entity.packageName);
+    details.activitys = await appChannel.getAppActivitys(
+      widget.entity.packageName,
+    );
+    String result = await appChannel.getAppDetails(widget.entity.packageName);
     List<String> results = result.split('\r');
     Log.w('result -> $results');
     details.installTime = getTimeStringFromTimestamp(results[0]);
@@ -95,9 +95,9 @@ class _AppSettingPageState extends State<AppSettingPage> {
     details.apkSha1 = sha1;
     details.apkSha256 = sha256;
     widget.entity.details = details;
-    List<String> pers = await Global().appChannel!.getAppPermission(
-          widget.entity.packageName,
-        );
+    List<String> pers = await appChannel.getAppPermission(
+      widget.entity.packageName,
+    );
     Log.w('pers -> $pers');
     for (String line in pers) {
       String name = line.split(' ').first;

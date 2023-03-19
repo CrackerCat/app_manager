@@ -29,6 +29,7 @@ class _AppIconHeaderState extends State<AppIconHeader> {
   bool useByte = false;
   bool prepare = false;
   IconController iconController = Get.find();
+  AppChannel channel = Get.find();
   String? iconDirPath;
   @override
   void initState() {
@@ -48,7 +49,7 @@ class _AppIconHeaderState extends State<AppIconHeader> {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8.w),
         child: Image.network(
-          'http://127.0.0.1:${widget.channel?.port ?? Global().appChannel!.port}/icon/${widget.packageName}',
+          'http://127.0.0.1:${widget.channel?.port ?? channel.port}/icon/${widget.packageName}',
           gaplessPlayback: true,
           errorBuilder: (_, __, ___) {
             return Image.asset(

@@ -25,7 +25,7 @@ dependencies:
   app_channel:
     git:
       url: https://github.com/nightmare-space/applib
-      path: applib_util
+      path: app_channel
   adbutil:
     git: https://github.com/nightmare-space/adbutil
   file_manager_view:
@@ -45,7 +45,7 @@ dependency_overrides:
 #   global_repository:
 #     path: /Users/nightmare/Desktop/nightmare-space/global_repository
   app_channel:
-    path: ../applib/applib_util
+    path: ../applib/app_channel
   flutter_svg: ^1.1.6
 #   adbutil:
 #     path: /Users/nightmare/Desktop/nightmare-space/adbutil
