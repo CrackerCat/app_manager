@@ -544,7 +544,7 @@ class _AppInfoDetailPageState extends State<AppInfoDetailPage> {
                                       InkWell(
                                         onTap: () async {
                                           await Clipboard.setData(ClipboardData(
-                                            text: widget.entity!.minSdk,
+                                            text: widget.entity!.minSdk ?? '',
                                           ));
                                           showToast('minSdk已复制');
                                         },
@@ -572,7 +572,7 @@ class _AppInfoDetailPageState extends State<AppInfoDetailPage> {
                                       InkWell(
                                         onTap: () async {
                                           await Clipboard.setData(ClipboardData(
-                                            text: widget.entity!.targetSdk,
+                                            text: widget.entity!.targetSdk ?? '',
                                           ));
                                           showToast('targetSdk已复制');
                                         },
