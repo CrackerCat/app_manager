@@ -14,7 +14,7 @@ dependencies:
   # Flutter 的一些动画
   flutter_spinkit: ^5.1.0
 
-  dio: ^4.0.0
+  dio: ^5.4.3
   # shortcut: ^0.0.1
   path: ^1.8.0
   get: ^4.1.3
