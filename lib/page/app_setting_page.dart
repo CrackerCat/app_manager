@@ -46,7 +46,7 @@ class _AppSettingPageState extends State<AppSettingPage> {
       Log.i(value);
     });
     appChannel.getDisplays().then((value) {
-      displayId = value;
+      // displayId = value;
       Log.i(displayId);
       setState(() {});
     });
