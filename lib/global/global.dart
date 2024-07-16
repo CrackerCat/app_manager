@@ -1,5 +1,4 @@
 import 'package:app_channel/app_channel.dart';
-import 'package:app_channel/implement/local_app_channel.dart';
 import 'package:app_manager/bindings/app_manager_binding.dart';
 import 'package:app_manager/routes/app_pages.dart';
 import 'package:get/get.dart';

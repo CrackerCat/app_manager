@@ -42,10 +42,6 @@ flutter:
     - assets/
     
 dependency_overrides:
-#   global_repository:
-#     path: /Users/nightmare/Desktop/nightmare-space/global_repository
   app_channel:
-    path: ../applib/app_channel
+    path: ../app_channel
   flutter_svg: ^1.1.6
-#   adbutil:
-#     path: /Users/nightmare/Desktop/nightmare-space/adbutil

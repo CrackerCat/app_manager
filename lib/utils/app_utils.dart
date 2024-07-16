@@ -70,7 +70,7 @@ class AppUtils {
     if (appType == AppType.system) {
       isSystemApp = true;
     }
-    Log.w('getUserApp');
+    // Log.w('getUserApp');
     //拿到应用软件List
     Stopwatch watch = Stopwatch();
     watch.start();
