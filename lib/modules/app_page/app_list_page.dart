@@ -9,8 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:global_repository/global_repository.dart';
-import 'package:global_repository/src/utils/screen_util.dart';
-
 import '../../widgets/highlight_text.dart';
 
 class AppListPage extends StatefulWidget {
@@ -42,15 +40,12 @@ class AppListPageState extends State<AppListPage> {
   Widget build(BuildContext context) {
     List<AppInfo> apps = List.from(widget.appList);
     if (apps.isEmpty) {
-      return SpinKitThreeBounce(
-        color: AppColors.accentColor,
-        size: 16.0,
-      );
+      return const SpinKitThreeBounce(color: AppColors.accentColor, size: 16.0);
     } else {
-      if (widget.filter != null && widget.filter.isNotEmpty) {
+      if (widget.filter.isNotEmpty) {
         // 移除不包含关键字的item
         apps.removeWhere((element) {
-          return !element.appName.toLowerCase().contains(widget.filter) && !element.packageName.toLowerCase().contains(widget.filter);
+          return !element.appName.toLowerCase().contains(widget.filter) && !element.package.toLowerCase().contains(widget.filter);
         });
       }
       return ListView.builder(
@@ -138,18 +133,18 @@ class _AppItemState extends State<AppItem> {
         clipBehavior: Clip.antiAlias,
         child: InkWell(
           onLongPress: () {
-            Get.dialog(AppSettingPage(
-              entity: entity,
-              offset: offset,
-            ));
+            // Get.dialog(AppSettingPage(
+            //   entity: entity,
+            //   offset: offset,
+            // ));
           },
           child: Listener(
             onPointerDown: (PointerDownEvent event) {
               if (event.kind == PointerDeviceKind.mouse && event.buttons == kSecondaryMouseButton) {
-                Get.dialog(AppSettingPage(
-                  entity: entity,
-                  offset: offset,
-                ));
+                // Get.dialog(AppSettingPage(
+                //   entity: entity,
+                //   offset: offset,
+                // ));
               }
             },
             child: GestureDetector(
@@ -176,8 +171,8 @@ class _AppItemState extends State<AppItem> {
                               width: 60,
                               height: 60,
                               child: AppIconHeader(
-                                key: Key(entity.packageName),
-                                packageName: entity.packageName,
+                                key: Key(entity.package),
+                                packageName: entity.package,
                                 channel: am.curChannel,
                               ),
                             ),
@@ -196,7 +191,7 @@ class _AppItemState extends State<AppItem> {
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      if (entity.freeze) tagItem('被冻结'),
+                                      if (!entity.enabled) tagItem('被冻结'),
                                       if (entity.hide) tagItem('被隐藏'),
                                     ],
                                   ),
@@ -204,16 +199,14 @@ class _AppItemState extends State<AppItem> {
                                     controller: ScrollController(),
                                     scrollDirection: Axis.horizontal,
                                     child: HighlightText(
-                                      data: entity.packageName,
+                                      data: entity.package,
                                       hightlightData: widget.filter,
                                       defaultStyle: const TextStyle(
                                         color: AppColors.fontColor,
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: 4,
-                                  ),
+                                  const SizedBox(height: 4),
                                   Text(
                                     '${entity.versionName}(${entity.versionCode})',
                                     style: TextStyle(

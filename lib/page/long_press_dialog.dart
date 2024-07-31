@@ -3,7 +3,6 @@ import 'package:app_manager/global/global.dart';
 import 'package:app_manager/controller/app_manager_controller.dart';
 import 'package:app_manager/controller/check_controller.dart';
 import 'package:app_manager/theme/app_colors.dart';
-import 'package:app_manager/utils/app_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,7 +10,7 @@ class LongPress extends StatefulWidget {
   const LongPress({Key? key}) : super(key: key);
 
   @override
-  _LongPressState createState() => _LongPressState();
+  State createState() => _LongPressState();
 }
 
 class _LongPressState extends State<LongPress> {
@@ -72,12 +71,10 @@ class _LongPressState extends State<LongPress> {
               Get.back();
               AppManagerController managerController = Get.find();
               for (AppInfo? entity in controller.check) {
-                bool success =
-                    await Global().appChannel!.freezeApp(entity!.packageName);
+                bool success = await Global().appChannel!.freezeApp(entity!.package);
                 if (success) {
-                  entity.freeze = true;
+                  entity.enabled = false;
                   managerController.update();
-                  // managerController.removeEntityByPackage(entity);
                 }
               }
               controller.clearCheck();
@@ -86,12 +83,10 @@ class _LongPressState extends State<LongPress> {
               Get.back();
               AppManagerController managerController = Get.find();
               for (AppInfo? entity in controller.check) {
-                bool success =
-                    await Global().appChannel!.unFreezeApp(entity!.packageName);
+                bool success = await Global().appChannel!.unFreezeApp(entity!.package);
                 if (success) {
-                  entity.freeze = false;
+                  entity.enabled = true;
                   managerController.update();
-                  // managerController.removeEntityByPackage(entity);
                 }
               }
               controller.clearCheck();

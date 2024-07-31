@@ -22,7 +22,7 @@ class AppIconHeader extends StatefulWidget {
   final AppChannel? channel;
 
   @override
-  _AppIconHeaderState createState() => _AppIconHeaderState();
+  State createState() => _AppIconHeaderState();
 }
 
 class _AppIconHeaderState extends State<AppIconHeader> {

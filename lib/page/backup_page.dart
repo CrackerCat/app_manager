@@ -3,15 +3,11 @@ import 'dart:io';
 import 'package:app_channel/app_channel.dart';
 import 'package:app_manager/global/global.dart';
 import 'package:app_manager/theme/app_colors.dart';
-import 'package:app_manager/utils/app_utils.dart';
 import 'package:app_manager/widgets/app_icon_header.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:global_repository/global_repository.dart';
-import 'package:path/path.dart' as path;
 
 class BackupPage extends StatefulWidget {
   const BackupPage({
@@ -25,7 +21,7 @@ class BackupPage extends StatefulWidget {
   final List<AppInfo?>? entitys;
 
   @override
-  _BackupPageState createState() => _BackupPageState();
+  State createState() => _BackupPageState();
 }
 
 class _BackupPageState extends State<BackupPage> {
@@ -53,12 +49,12 @@ class _BackupPageState extends State<BackupPage> {
       // computeSpeed();
       backupPath = '$dataPath/${currentApp!.appName}.apk';
       await Global().exec(
-        'mkdir -p $dataPath && cp ${currentApp!.apkPath} $backupPath',
+        'mkdir -p $dataPath && cp ${currentApp!.sourceDir} $backupPath',
       );
       startBackupData = true;
       setState(() {});
       await Global().exec(
-        'tar -zcvf $dataPath/${currentApp!.appName}.tar.gz /data/data/${currentApp!.packageName}',
+        'tar -zcvf $dataPath/${currentApp!.appName}.tar.gz /data/data/${currentApp!.package}',
       );
       // 最后一个需要通知结束
     }
@@ -68,7 +64,7 @@ class _BackupPageState extends State<BackupPage> {
 
   Future<void> computeSpeed() async {
     // 这儿的apk可能还没有
-    limit = int.tryParse(await Global().appChannel!.getFileSize(currentApp!.apkPath));
+    limit = int.tryParse(await Global().appChannel!.getFileSize(currentApp!.sourceDir));
     current = 0;
     setState(() {});
     while (limit != current) {
@@ -160,7 +156,7 @@ class _BackupPageState extends State<BackupPage> {
                               width: 72,
                               height: 72,
                               child: AppIconHeader(
-                                packageName: '${currentApp!.packageName}',
+                                packageName: '${currentApp!.package}',
                               ),
                             ),
                           ],
